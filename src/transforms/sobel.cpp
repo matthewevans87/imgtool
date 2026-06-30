@@ -17,9 +17,9 @@ void SobelTransform::apply(Image &image)
     // Gy = [[-1,-2,-1], [ 0, 0, 0], [ 1, 2, 1]]  (vertical gradient)
     // Skip border pixels (1-pixel margin) for simplicity
 
-    for (int y = 1; y < h; ++y)
+    for (int y = 1; y < h - 1; ++y)
     {
-        for (int x = 1; x < w; ++x)
+        for (int x = 1; x < w - 1; ++x)
         {
             // clang-format off
             float gx = -1.0f * image.at(x-1, y-1, 0)
