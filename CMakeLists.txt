@@ -16,3 +16,4 @@ add_executable(imgtool
 )
 
 target_include_directories(imgtool PRIVATE include third_party)
+target_link_libraries(imgtool PRIVATE stdc++fs)

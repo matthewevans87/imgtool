@@ -24,9 +24,10 @@ cmake -B build && cmake --build build
 
 ```
 imgtool <input> <output> [transform...]
+imgtool --batch <input_dir> <output_dir> [transform...]
 ```
 
-Transforms are applied left to right. Multiple transforms can be chained.
+Transforms are applied left to right. Multiple transforms can be chained. With `--batch`, all `.png` files in `<input_dir>` are processed concurrently and written to `<output_dir>`.
 
 ### Transforms
 
@@ -41,12 +42,15 @@ Transforms are applied left to right. Multiple transforms can be chained.
 
 ```sh
 # Convert to grayscale
-imgtool input.png output.png grayscale
+imgtool images/input.png images/output.png grayscale
 
 # Blur then detect edges
-imgtool input.png edges.png blur:3 sobel
+imgtool images/input.png images/edges.png blur:3 sobel
 
 # Full edge-detection pipeline
-imgtool input.png result.png grayscale blur sobel threshold:128
+imgtool images/input.png images/result.png grayscale blur sobel threshold:128
+
+# Batch process a directory
+imgtool --batch images/inputs images/outputs grayscale blur:3 sobel threshold:80
 ```
 
