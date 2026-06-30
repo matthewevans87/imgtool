@@ -11,12 +11,15 @@
 
 Image::Image(const std::string &path)
 {
-    // stb_image loads the file and returns a malloc'd buffer
-    data_ = stbi_load(path.c_str(), &width_, &height_, &channels_, 0);
-    if (!data_)
-    {
+    // stbi_load returns a malloc'd buffer; copy it into a new[]-owned buffer
+    // so all Image instances use the same allocator and delete[] is always safe.
+    uint8_t *raw = stbi_load(path.c_str(), &width_, &height_, &channels_, 0);
+    if (!raw)
         throw std::runtime_error("Failed to load image: " + path);
-    }
+    size_t n = static_cast<size_t>(width_) * height_ * channels_;
+    data_ = new uint8_t[n];
+    std::memcpy(data_, raw, n);
+    stbi_image_free(raw);
 }
 
 Image::Image(int width, int height, int channels)
