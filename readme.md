@@ -4,7 +4,7 @@ A command-line image processing tool that applies a configurable pipeline of tra
 
 **Doge**
 
-![Doge](./images/image.png)
+![Doge](./images/input.png)
 
 
 **Transformed Doge**
